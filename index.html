@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Adventure Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #007bff;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Text Adventure Game</h1>
+        <div id="story">
+            <p>Welcome to the Text Adventure Game! Are you ready to embark on an epic journey?</p>
+            <button onclick="startGame()">Start</button>
+        </div>
+        <div id="choices" style="display: none;">
+            <p id="scenario"></p>
+            <button id="choice1" onclick="makeChoice(1)"></button>
+            <button id="choice2" onclick="makeChoice(2)"></button>
+        </div>
+    </div>
+
+    <script>
+        let currentScene = 0;
+
+        const scenes = [
+            {
+                scenario: "You wake up in a mysterious forest. What do you do?",
+                choice1: "Explore the forest",
+                choice2: "Look for a way out"
+            },
+            {
+                scenario: "As you venture deeper into the forest, you encounter a river blocking your path. How do you proceed?",
+                choice1: "Swim across the river",
+                choice2: "Find a bridge or a boat"
+            },
+            {
+                scenario: "You find an old bridge across the river. As you cross it, you notice a cave entrance nearby. What will you do?",
+                choice1: "Enter the cave",
+                choice2: "Continue exploring the forest"
+            },
+            {
+                scenario: "Inside the cave, you find a treasure chest guarded by a sleeping dragon. What is your next move?",
+                choice1: "Attempt to sneak past the dragon",
+                choice2: "Wake up the dragon and negotiate"
+            },
+            {
+                scenario: "You successfully open the treasure chest and find legendary artifacts. What will you do with them?",
+                choice1: "Use them to help others",
+                choice2: "Keep them for yourself"
+            },
+            {
+                scenario: "Congratulations! You have completed your adventure. Would you like to play again?",
+                choice1: "Yes",
+                choice2: "No"
+            }
+        ];
+
+        function startGame() {
+            currentScene = 0;
+            showScene();
+        }
+
+        function showScene() {
+            const scene = scenes[currentScene];
+            document.getElementById('story').style.display = 'none';
+            document.getElementById('choices').style.display = 'block';
+            document.getElementById('scenario').textContent = scene.scenario;
+            document.getElementById('choice1').textContent = scene.choice1;
+            document.getElementById('choice2').textContent = scene.choice2;
+        }
+
+        function makeChoice(choice) {
+            if (currentScene === 5) {
+                if (choice === 1) {
+                    startGame();
+                } else {
+                    alert("Thank you for playing!");
+                    return;
+                }
+            }
+
+            if (choice === 1) {
+                currentScene = currentScene * 2 + 1;
+            } else {
+                currentScene = currentScene * 2 + 2;
+            }
+
+            showScene();
+        }
+    </script>
+</body>
+</html>
